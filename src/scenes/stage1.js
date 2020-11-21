@@ -1,3 +1,9 @@
+import Ghost from '../gameObjects/Ghost'
+import Ball from '../gameObjects/Ball'
+import FinePerson from '../gameObjects/FinePerson'
+import BadPerson from '../gameObjects/BadPerson'
+import Portal from '../gameObjects/Portal'
+
 export default class Stage1 extends Phaser.Scene {
 
   /**
@@ -9,111 +15,105 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('logo', './src/assets/logo.png');
+    this.load.image('ghost', './src/assets/ghost.png');
   }
 
+  makeCollisionsBetweenBadPeople(){
+    for(let i = 0; i< this.badPeople.children.entries.length; i++){
+      for(let j = 0; j< this.badPeople.children.entries.length; j++){
+        this.physics.add.collider(this.badPeople.children.entries[i].sprite, this.badPeople.children.entries[j].sprite);
+      }
+      for(let j = 0; j< this.finePeople.children.entries.length; j++){
+        this.physics.add.collider(this.badPeople.children.entries[i].sprite, this.finePeople.children.entries[j].sprite);
+        this.physics.add.overlap(this.badPeople.children.entries[i].sprite, this.ball.sprite, this.ball.looseFeeling, null, this.ball);
+      }
+    }
+  }
+  makeOverlapBetweenGhostAndFinePeople(){
+    for(let i = 0; i< this.finePeople.children.entries.length; i++){
+      this.physics.add.overlap(this.ghost.sprite, this.finePeople.children.entries[i].sprite, this.collectFeeling, null, this);
+    }
+  }
 
-  createRandomPeople(){
-    this.randomPeople = this.add.group();
-    this.randomPeople.enableBody = true;
+  createRandomBadPeople(){
+    this.badPeople = this.add.group();
+    this.badPeople.enableBody = true;
 
-    for (let i = 0; i < 7; i++)
+    let badPeople;
+    for (let i = 0; i < 3; i++)
     {
       let randomX = Math.random()*500;
       let randomY = Math.random()*500;
-      let s = this.randomPeople.create(randomX, randomY, 'baddie');
-      this.physics.world.enable(s, Phaser.Physics.ARCADE);
+      badPeople = new BadPerson(this, randomX, randomY);
+      this.badPeople.add(badPeople);
+    }
+    this.makeCollisionsBetweenBadPeople();
+  }
 
-      s.name = 'alien' + s;
-      s.body.collideWorldBounds = true;
-      s.body.bounce.setTo(1, 1);
-      s.body.velocity.x = 10 + Math.random() * 100
-      s.body.velocity.y = 10 + Math.random() * 100;
-      s.body.debugBodyColor = 0xff0000;
-      s.body.mass = 1
+  createFinePeople(){
+    this.finePeople = this.add.group();
+    this.finePeople.enableBody = true;
+
+    let finePerson;
+    for (let i = 0; i < 3; i++)
+    {
+      let randomX = Math.random()*500;
+      let randomY = Math.random()*500;
+      finePerson = new FinePerson(this, randomX, randomY);
+      this.finePeople.add(finePerson);
     }
   }
 
-  createGhost(){
-    this.ghost = this.add.sprite(400, 300, 'ghost');
-    this.ghost.name = 'ghost';
-
-    this.physics.world.enable(this.ghost, Phaser.Physics.ARCADE);
-
-    this.ghost.body.collideWorldBounds = true;
-    this.ghost.body.bounce.set(0.8);
-    this.ghost.body.allowRotation = true;
-    this.ghost.body.immovable = false;
-    this.ghost.body.debugBodyColor = 0xffffff;
-    this.ghost.body.mass = .1
-    this.ghost.body.useDamping = true;
-    this.ghost.body.setAllowDrag()
-    this.ghost.setDrag = .95;
-
+  collectFeeling(ghost, finePeople){
+    if(finePeople.hasFeeling && !this.ball.sprite.isFat){
+      this.playCollect(finePeople);
+      finePeople.hasFeeling = false;
+      this.ball.makeFat(finePeople);
+    }
   }
 
-  createBall(){
-    this.ball = this.add.sprite(500, 300, 'car');
-    this.ball.name = 'ball';
-
-    this.physics.world.enable(this.ball, Phaser.Physics.ARCADE);
-
-    this.ball.body.collideWorldBounds = true;
-    this.ball.body.bounce.set(0.8);
-    this.ball.body.allowRotation = true;
-    this.ball.body.immovable = false;
-    this.ball.body.debugBodyColor = 0xff00ff;
-    this.ball.body.useDamping = true;
-    this.ball.setDrag = .97;
+  playCollect(){
+    //add anim effect
   }
 
-  setBallAcceleration(){
-    console.log(this.isRushing)
-    let accelerationFactor = this.isRushing ? 2 : 0.6;
-    this.ball.body.velocity.x = (this.ghost.x-this.ball.x-10)*accelerationFactor;
-    this.ball.body.velocity.y = (this.ghost.y-this.ball.y)*accelerationFactor;
+  increaseScore(){
+    this.score += 1;
+    if(this.score == this.finePeople.children.entries.length){
+      this.makeNewLevel();
+    }
+  }
+
+  clearPeople(){
+    for(let person of this.finePeople.children.entries){
+      person.kill();
+    }
+    for(let i = 0; i < this.badPeople.children.entries; i++){
+      this.badPeople.children.entries[i].kill();
+    }
+
+    console.log('destroyed', this.finePeople, this.badPeople)
+  }
+  makeNewLevel(){
+    this.clearPeople();
+    this.createFinePeople();
+    this.createRandomBadPeople();
+    this.makeOverlapBetweenGhostAndFinePeople();
+    this.score = 0;
   }
 
   create() {
-
-    this.createRandomPeople();
-    this.createGhost();
-    this.createBall();
-
-    this.physics.add.collider(this.randomPeople, this.randomPeople);
-    this.physics.add.collider(this.ghost, this.randomPeople);
     this.cursors = this.input.keyboard.createCursorKeys();
-
+    this.ghost = new Ghost(this, 300, 500);
+    this.ball = new Ball(this, 350, 500);
+    this.portal = new Portal(this, 600, 300);
+    this.createFinePeople();
+    this.createRandomBadPeople();
+    this.makeOverlapBetweenGhostAndFinePeople();
+    this.score = 0;
   }
 
   update(){
-    this.isRushing = false;
-    this.ghost.body.velocity.x = 0;
-    this.ghost.body.velocity.y = 0;
-    this.ghost.body.angularVelocity = 0;
 
-    if (this.cursors.left.isDown)
-    {
-      this.ghost.body.angularVelocity = -250;
-    }
-    else if (this.cursors.right.isDown)
-    {
-      this.ghost.body.angularVelocity = 250;
-    }
-
-    if (this.cursors.up.isDown)
-    {
-      this.ghost.body.velocity = this.physics.velocityFromAngle(this.ghost.angle, 200);
-      //this.physics.accelerateTo(this.ball, this.ghost.x -20, this.ghost.y, 20, 200, 200);
-
-    }
-
-    if (this.cursors.space.isDown)
-    {
-      this.isRushing = true;
-    }
-
-    this.setBallAcceleration();
 
   }
 
