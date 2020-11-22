@@ -5,14 +5,14 @@ import BadPerson from '../gameObjects/BadPerson'
 import Follower from '../gameObjects/Follower'
 import Portal from '../gameObjects/Portal'
 
-export default class Stage1 extends Phaser.Scene {
+export default class Stage4 extends Phaser.Scene {
 
   /**
    *  Game scene containing the main game logic
    *  @extends Phaser.Scene
    */
   constructor() {
-    super('stage1 ');
+    super('stage4');
   }
 
   preload() {
@@ -21,7 +21,6 @@ export default class Stage1 extends Phaser.Scene {
     this.load.image('chara', './src/assets/chara.png');
     this.load.image('arrow', './src/assets/arrow.png');
     this.load.image('portal', './src/assets/portal.png');
-    this.load.audio('music', ['./src/assets/Fanpathie_loop.mp3']);
     this.load.atlas('flares', './src/assets/flares.png', './src/assets/flares.json');
     this.load.tilemapTiledJSON('level1', './src/assets/maps/map1.json');
     this.load.tilemapTiledJSON('level2', './src/assets/maps/map2.json');
@@ -133,8 +132,7 @@ export default class Stage1 extends Phaser.Scene {
   increaseScore(){
     this.score += 1;
     if(this.score == this.finePeople.children.entries.length){
-      //this.makeNewLevel();
-      this.scene.start('stage2');
+      this.ghost.emitter.frequency = 2;
     }
   }
 
@@ -159,7 +157,6 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   create() {
-    this.sound.play('music');
     this.map = this.make.tilemap({ key: 'level1' });
     this.map.createStaticLayer('Background', 'arrow', 0, 0);
     this.map.createStaticLayer('Collision', 'arrow', 0, 0);

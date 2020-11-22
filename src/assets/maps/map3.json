@@ -3,7 +3,8 @@
     {
      "export":
         {
-         "format":"json"
+         "format":"json",
+         "target":"map2.json"
         }
     },
  "height":16,
@@ -96,39 +97,83 @@
          "objects":[
                 {
                  "height":0,
-                 "id":10,
+                 "id":18,
+                 "name":"Follower1",
+                 "point":true,
+                 "rotation":0,
+                 "type":"follower",
+                 "visible":true,
+                 "width":0,
+                 "x":438.131383602166,
+                 "y":126.974381871965
+                }, 
+                {
+                 "height":0,
+                 "id":22,
+                 "name":"Follower1",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-34.8830719428476,
+                         "y":133.950996260535
+                        }, 
+                        {
+                         "x":239.995534966791,
+                         "y":184.182619858235
+                        }, 
+                        {
+                         "x":195.345202879946,
+                         "y":404.643634537032
+                        }, 
+                        {
+                         "x":485.572361444438,
+                         "y":477.200424178155
+                        }],
+                 "rotation":0,
+                 "type":"curve",
+                 "visible":true,
+                 "width":0,
+                 "x":447.898643746163,
+                 "y":152.090193670815
+                }, 
+                {
+                 "height":0,
+                 "id":23,
                  "name":"Random1",
                  "point":true,
                  "rotation":0,
                  "type":"random",
                  "visible":true,
                  "width":0,
-                 "x":414.410894681029,
-                 "y":485.572361444438
+                 "x":475.805101300441,
+                 "y":732.544510799799
                 }, 
                 {
                  "height":0,
-                 "id":11,
+                 "id":24,
                  "name":"Random2",
                  "point":true,
                  "rotation":0,
                  "type":"random",
                  "visible":true,
                  "width":0,
-                 "x":371.155885471898,
-                 "y":295.808450075347
+                 "x":327.900876262767,
+                 "y":150.694870793102
                 }, 
                 {
                  "height":0,
-                 "id":17,
+                 "id":25,
                  "name":"Random3",
                  "point":true,
                  "rotation":0,
                  "type":"random",
                  "visible":true,
                  "width":0,
-                 "x":728.358542166657,
-                 "y":535.803985042139
+                 "x":987.888597421443,
+                 "y":442.317352235307
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -137,7 +182,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":18,
+ "nextobjectid":28,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.3.5",

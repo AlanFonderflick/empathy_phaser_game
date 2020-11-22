@@ -15,8 +15,8 @@ export default class BadPerson extends Phaser.GameObjects.GameObject {
     this.sprite.name = 'alien';
     this.sprite.body.collideWorldBounds = true;
     this.sprite.body.bounce.setTo(1, 1);
-    this.sprite.body.velocity.x = 10 + Math.random() * 100
-    this.sprite.body.velocity.y = 10 + Math.random() * 100;
+    this.sprite.body.velocity.x = 35 + Math.random() * 100
+    this.sprite.body.velocity.y = 29 + Math.random() * 100;
     this.sprite.body.debugBodyColor = 0xff0000;
     this.sprite.body.mass = 1;
     this.sprite.setTint(0xff00ff)

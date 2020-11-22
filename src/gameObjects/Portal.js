@@ -8,25 +8,26 @@ export default class Portal extends Phaser.GameObjects.GameObject {
   constructor(scene, x, y, frame) {
     super(scene, x, y);
     this.scene = scene;
-    this.sprite = this.scene.add.sprite(x, y, 'baddie');
+    this.sprite = this.scene.add.sprite(x, y, 'portal');
     this.sprite.name = 'badPeople';
     this.scene.physics.world.enable(this.sprite, Phaser.Physics.ARCADE);
-    this.sprite.displayWidth = 100;
-    this.sprite.displayHeight = 100;
+    this.sprite.displayWidth = 180;
+    this.sprite.displayHeight = 207;
     this.sprite.name = 'portal';
     this.sprite.body.collideWorldBounds = true;
     this.sprite.body.debugBodyColor = 0x0f0f00;
     this.scene.physics.add.overlap(this.scene.ball.sprite, this.sprite, this.purgeFeeling, null, this);
 
     this.scene.add.existing(this);
+    this.sprite.setDepth(0);
 
   }
 
   explode(){
     this.emitter = this.scene.particles.createEmitter({
-        frame: [ 'yellow' ],
-        x: this.sprite.body.position.x,
-        y: this.sprite.body.position.y,
+        frame: [ 'blue' ],
+        x: this.sprite.body.position.x+this.sprite.body.width/2,
+        y: this.sprite.body.position.y+this.sprite.body.height/2,
         speed: { min: -800, max: 800 },
         angle: { min: 0, max: 360 },
         lifespan: 2000,
@@ -34,7 +35,7 @@ export default class Portal extends Phaser.GameObjects.GameObject {
         frequency: -1,
         blendMode: 'ADD',
     });
-    this.emitter.explode(10);
+    this.emitter.explode(30);
   }
 
   purgeFeeling(){
@@ -46,7 +47,7 @@ export default class Portal extends Phaser.GameObjects.GameObject {
   }
 
   preUpdate(){
-
+    this.sprite.rotation -= 0.01;
   }
 
 }

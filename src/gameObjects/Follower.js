@@ -33,7 +33,7 @@ export default class Follower extends BadPerson {
     this.follower = this.scene.add.follower(this.myPath, path.polyline[0].x+path.x, path.polyline[0].y+path.y);
 
     this.follower.startFollow({
-        duration: 5000,
+        duration: 2500,
         yoyo: true,
         ease: 'Sine.easeInOut',
         repeat: -1

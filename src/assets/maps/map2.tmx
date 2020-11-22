@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="50" tileheight="50" infinite="0" nextlayerid="9" nextobjectid="22">
+ <editorsettings>
+  <export target="map1.json" format="json"/>
+ </editorsettings>
+ <layer id="1" name="Background" width="24" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="8" name="Decor"/>
+ <objectgroup id="7" name="Collision"/>
+ <objectgroup id="6" name="Portal">
+  <object id="1" name="Portal" x="1019.98" y="170.229">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="FinePeople">
+  <object id="2" name="People1" x="153.486" y="598.594">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="BadPeople">
+  <object id="18" name="Follower1" type="follower" x="438.131" y="126.974">
+   <point/>
+  </object>
+  <object id="20" name="Follower1" type="curve" x="440.922" y="143.718">
+   <polyline points="0,0 593.012,562.315"/>
+  </object>
+ </objectgroup>
+</map>

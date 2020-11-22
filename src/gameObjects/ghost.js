@@ -29,7 +29,20 @@ export default class Ghost extends Phaser.GameObjects.GameObject {
     this.scene.add.existing(this);
     this.imgOffsetY = 0;
     this.incrementor = +1;
+    this.sprite.setDepth(10);
 
+    this.emitter = this.scene.particles.createEmitter({
+        frame: [ 'yellow' ],
+        x: this.sprite.body.position.x+20,
+        y: this.sprite.body.position.y+20,
+        speed: { min: -800, max: 800 },
+        angle: { min: 0, max: 360 },
+        lifespan: { min: 500, max: 700 },
+        scale: 0.2,
+        frequency: -1,
+        blendMode: 'ADD',
+    });
+    this.emitter.startFollow(this.sprite)
   }
 
   makeOffsetY(){

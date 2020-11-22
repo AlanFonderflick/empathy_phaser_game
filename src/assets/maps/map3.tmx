@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="50" tileheight="50" infinite="0" nextlayerid="9" nextobjectid="28">
+ <editorsettings>
+  <export target="map3.json" format="json"/>
+ </editorsettings>
+ <layer id="1" name="Background" width="24" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="8" name="Decor"/>
+ <objectgroup id="7" name="Collision"/>
+ <objectgroup id="6" name="Portal">
+  <object id="1" name="Portal" x="1019.98" y="170.229">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="FinePeople">
+  <object id="2" name="People1" x="153.486" y="598.594">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="BadPeople">
+  <object id="18" name="Follower1" type="follower" x="438.131" y="126.974">
+   <point/>
+  </object>
+  <object id="22" name="Follower1" type="curve" x="447.899" y="152.09">
+   <polyline points="0,0 -34.8831,133.951 239.996,184.183 195.345,404.644 485.572,477.2"/>
+  </object>
+  <object id="23" name="Random1" type="random" x="475.805" y="732.545">
+   <point/>
+  </object>
+  <object id="24" name="Random2" type="random" x="327.901" y="150.695">
+   <point/>
+  </object>
+  <object id="25" name="Random3" type="random" x="987.889" y="442.317">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

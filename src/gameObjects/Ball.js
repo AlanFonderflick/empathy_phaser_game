@@ -9,7 +9,7 @@ export default class ball extends Phaser.GameObjects.GameObject {
   constructor(scene, x, y, frame) {
     super(scene, x, y);
     this.scene = scene;
-    this.sprite = this.scene.add.sprite(0, 0, 'car');
+    this.sprite = this.scene.add.sprite(0, 0, 'ball');
     this.sprite.name = 'ball';
 
     this.scene.physics.world.enable(this.sprite, Phaser.Physics.ARCADE);
@@ -25,6 +25,7 @@ export default class ball extends Phaser.GameObjects.GameObject {
     this.sprite.isFat = false;
     this.sprite.chargedPerson = null;
     this.bar = new HealthBar(scene, this.sprite.body.position.x+20, this.sprite.body.position.y+40);
+    this.sprite.setDepth(10);
 
 
     this.makeBounce();

@@ -96,39 +96,35 @@
          "objects":[
                 {
                  "height":0,
-                 "id":10,
-                 "name":"Random1",
+                 "id":18,
+                 "name":"Follower1",
                  "point":true,
                  "rotation":0,
-                 "type":"random",
+                 "type":"follower",
                  "visible":true,
                  "width":0,
-                 "x":414.410894681029,
-                 "y":485.572361444438
+                 "x":438.131383602166,
+                 "y":126.974381871965
                 }, 
                 {
                  "height":0,
-                 "id":11,
-                 "name":"Random2",
-                 "point":true,
+                 "id":20,
+                 "name":"Follower1",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":593.012223028409,
+                         "y":562.315119718703
+                        }],
                  "rotation":0,
-                 "type":"random",
+                 "type":"curve",
                  "visible":true,
                  "width":0,
-                 "x":371.155885471898,
-                 "y":295.808450075347
-                }, 
-                {
-                 "height":0,
-                 "id":17,
-                 "name":"Random3",
-                 "point":true,
-                 "rotation":0,
-                 "type":"random",
-                 "visible":true,
-                 "width":0,
-                 "x":728.358542166657,
-                 "y":535.803985042139
+                 "x":440.922029357593,
+                 "y":143.718256404532
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -137,7 +133,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":18,
+ "nextobjectid":22,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.3.5",

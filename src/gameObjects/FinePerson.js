@@ -8,7 +8,7 @@ export default class FinePerson extends Phaser.GameObjects.GameObject {
   constructor(scene, x, y, frame) {
     super(scene, x, y);
     this.scene = scene;
-    this.sprite = this.scene.add.sprite(x, y, 'baddie');
+    this.sprite = this.scene.add.sprite(x, y, 'chara');
     this.sprite.name = 'finePeople';
     this.scene.physics.world.enable(this.sprite, Phaser.Physics.ARCADE);
 
@@ -19,7 +19,6 @@ export default class FinePerson extends Phaser.GameObjects.GameObject {
     this.sprite.hasFeeling = true;
     this.sprite.parent = this;
     this.scene.add.existing(this);
-
   }
 
   recharge(){
