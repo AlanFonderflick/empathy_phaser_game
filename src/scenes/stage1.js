@@ -2,6 +2,7 @@ import Ghost from '../gameObjects/Ghost'
 import Ball from '../gameObjects/Ball'
 import FinePerson from '../gameObjects/FinePerson'
 import BadPerson from '../gameObjects/BadPerson'
+import Follower from '../gameObjects/Follower'
 import Portal from '../gameObjects/Portal'
 
 export default class Stage1 extends Phaser.Scene {
@@ -15,7 +16,11 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('ghost', './src/assets/ghost.png');
+    this.load.image('ghost', './src/assets/ghost.gif');
+    this.load.image('arrow', './src/assets/arrow.png');
+    this.load.atlas('flares', './src/assets/flares.png', './src/assets/flares.json');
+    this.load.tilemapTiledJSON('level1', './src/assets/maps/map1.json');
+
   }
 
   makeCollisionsBetweenBadPeople(){
@@ -35,31 +40,74 @@ export default class Stage1 extends Phaser.Scene {
     }
   }
 
+  createWellParticles(target){
+    if(!target.sprite.isFat){
+      this.well.active = false;
+    }
+    else {
+      this.well.active = true;
+
+    }
+    this.well.x = target.sprite.x;
+    this.well.y = target.sprite.y;
+  }
+
   createRandomBadPeople(){
     this.badPeople = this.add.group();
     this.badPeople.enableBody = true;
+    let badPeopleObjects = [];
+    this.map.filterObjects('BadPeople', (badPerson) => {
+      if(badPerson.type == 'random'){
+        badPeopleObjects.push(badPerson);
+      }
+    });
 
-    let badPeople;
-    for (let i = 0; i < 3; i++)
+    let badPerson;
+    for (let i = 0; i < badPeopleObjects.length; i++)
     {
-      let randomX = Math.random()*500;
-      let randomY = Math.random()*500;
-      badPeople = new BadPerson(this, randomX, randomY);
-      this.badPeople.add(badPeople);
+      badPerson = new BadPerson(this, badPeopleObjects[i].x, badPeopleObjects[i].y);
+      this.badPeople.add(badPerson);
     }
     this.makeCollisionsBetweenBadPeople();
+  }
+
+  createFollowerPeople(){
+    let followerPeopleObjects = [];
+    let curve = null;
+    this.map.filterObjects('BadPeople', (badPerson) => {
+      if(badPerson.type == 'follower'){
+        this.map.filterObjects('BadPeople', (badPerson2) => {
+          if(badPerson2.type == 'curve' && badPerson2.name == badPerson.name ){
+            curve = badPerson2;
+          }
+        });
+        badPerson.path = curve;
+        followerPeopleObjects.push(badPerson);
+      }
+    });
+
+    let followerPerson;
+    for (let i = 0; i < followerPeopleObjects.length; i++)
+    {
+      followerPerson = new Follower(this, followerPeopleObjects[i].x, followerPeopleObjects[i].y, followerPeopleObjects[i].path);
+      this.badPeople.add(followerPerson);
+    }
+  }
+
+  createFollowerPath(){
+    this.follower = new Follower(this, 200, 200);
   }
 
   createFinePeople(){
     this.finePeople = this.add.group();
     this.finePeople.enableBody = true;
+    let finePeopleObjects = [];
+    this.portalObject = this.map.filterObjects('FinePeople', (finePerson) => finePeopleObjects.push(finePerson));
 
     let finePerson;
-    for (let i = 0; i < 3; i++)
+    for (let i = 0; i < finePeopleObjects.length; i++)
     {
-      let randomX = Math.random()*500;
-      let randomY = Math.random()*500;
-      finePerson = new FinePerson(this, randomX, randomY);
+      finePerson = new FinePerson(this, finePeopleObjects[i].x, finePeopleObjects[i].y);
       this.finePeople.add(finePerson);
     }
   }
@@ -72,8 +120,9 @@ export default class Stage1 extends Phaser.Scene {
     }
   }
 
-  playCollect(){
-    //add anim effect
+  playCollect(finePerson){
+    //this.createWellParticles(this.ball);
+    finePerson.parent.emitParticles(this.ball);
   }
 
   increaseScore(){
@@ -84,14 +133,11 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   clearPeople(){
-    for(let person of this.finePeople.children.entries){
-      person.kill();
-    }
-    for(let i = 0; i < this.badPeople.children.entries; i++){
-      this.badPeople.children.entries[i].kill();
-    }
+    this.finePeople.getChildren().map(child => child.kill())
+    this.badPeople.getChildren().map(child => child.kill())
+    this.badPeople.getChildren()[0].kill();
+    this.finePeople.getChildren()[0].kill();
 
-    console.log('destroyed', this.finePeople, this.badPeople)
   }
   makeNewLevel(){
     this.clearPeople();
@@ -101,19 +147,38 @@ export default class Stage1 extends Phaser.Scene {
     this.score = 0;
   }
 
+  createPortal(){
+    this.portalObject = this.map.getObjectLayer('Portal').objects[0];
+    this.portal = new Portal(this, this.portalObject.x, this.portalObject.y);
+  }
+
   create() {
+    this.map = this.make.tilemap({ key: 'level1' });
+    this.map.createStaticLayer('Background', 'arrow', 0, 0);
+    this.map.createStaticLayer('Collision', 'arrow', 0, 0);
+
+    console.log(this.map)
+    this.particles = this.add.particles('flares');
+    // this.well = this.particles.createGravityWell({
+    //    x: 0,
+    //    y: 0,
+    //    power: 3,
+    //    epsilon: 100,
+    //    gravity: 100
+    // });
     this.cursors = this.input.keyboard.createCursorKeys();
     this.ghost = new Ghost(this, 300, 500);
     this.ball = new Ball(this, 350, 500);
-    this.portal = new Portal(this, 600, 300);
     this.createFinePeople();
     this.createRandomBadPeople();
+    this.createFollowerPeople();
     this.makeOverlapBetweenGhostAndFinePeople();
+    this.createPortal();
     this.score = 0;
   }
 
   update(){
-
+    //this.createWellParticles(this.ball);
 
   }
 

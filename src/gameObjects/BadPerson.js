@@ -8,7 +8,7 @@ export default class BadPerson extends Phaser.GameObjects.GameObject {
   constructor(scene, x, y, frame) {
     super(scene, x, y);
     this.scene = scene;
-    this.sprite = this.scene.add.sprite(x, y, 'baddie');
+    this.sprite = this.scene.add.sprite(x, y, 'ghost');
     this.sprite.name = 'badPeople';
     this.scene.physics.world.enable(this.sprite, Phaser.Physics.ARCADE);
 
@@ -19,6 +19,8 @@ export default class BadPerson extends Phaser.GameObjects.GameObject {
     this.sprite.body.velocity.y = 10 + Math.random() * 100;
     this.sprite.body.debugBodyColor = 0xff0000;
     this.sprite.body.mass = 1;
+    this.sprite.setTint(0xff00ff)
+    this.sprite.scale = .5;
 
     this.scene.add.existing(this);
 
@@ -28,8 +30,10 @@ export default class BadPerson extends Phaser.GameObjects.GameObject {
   }
 
   kill(){
-    this.destroy();
-    this.sprite.destroy();
+    this.sprite.destroy(true);
+    console.log('@@@@@killed')
+    this.sprite = null;
+    this.destroy(true);
   }
 
   preUpdate(){

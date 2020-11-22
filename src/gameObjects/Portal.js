@@ -22,11 +22,26 @@ export default class Portal extends Phaser.GameObjects.GameObject {
 
   }
 
+  explode(){
+    this.emitter = this.scene.particles.createEmitter({
+        frame: [ 'yellow' ],
+        x: this.sprite.body.position.x,
+        y: this.sprite.body.position.y,
+        speed: { min: -800, max: 800 },
+        angle: { min: 0, max: 360 },
+        lifespan: 2000,
+        scale: 0.2,
+        frequency: -1,
+        blendMode: 'ADD',
+    });
+    this.emitter.explode(10);
+  }
+
   purgeFeeling(){
-    console.log('purge')
-    if(this.scene.ball.sprite.isFat){      
+    if(this.scene.ball.sprite.isFat){
       this.scene.ball.makeThin();
       this.scene.increaseScore();
+      this.explode();
     }
   }
 

@@ -5,9 +5,10 @@ import Stage1 from './scenes/stage1.js';
 const config = {
   type: Phaser.AUTO,
   parent: "phaser-example",
-  width: 800,
-  height: 600,
+  width: 1200,
+  height: 800,
   scene: [Stage1],
+  autoFocus: true,
   physics: {
         default: 'arcade',
         arcade: {
